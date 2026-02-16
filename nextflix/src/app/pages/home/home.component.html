@@ -1,0 +1,72 @@
+@if (!searchQuery) {
+  <app-hero-carousel (openDetail)="openModal($event)" />
+}
+
+<main class="content" [class.search-mode]="searchQuery">
+  <div class="filters-bar">
+    <div class="genre-filters">
+      <button
+        class="genre-pill"
+        [class.active]="activeGenre === null && !searchQuery"
+        (click)="activeGenre = null"
+      >
+        All
+      </button>
+      @for (genre of genres; track genre) {
+        <button
+          class="genre-pill"
+          [class.active]="activeGenre === genre"
+          (click)="toggleGenre(genre)"
+        >
+          {{ genre }}
+        </button>
+      }
+    </div>
+    <div class="sort-controls">
+      <label>Sort by:</label>
+      <select [(ngModel)]="sortBy" class="sort-select">
+        <option value="default">Default</option>
+        <option value="rating">Rating</option>
+        <option value="year">Year</option>
+        <option value="title">Title (A-Z)</option>
+      </select>
+    </div>
+  </div>
+
+  @if (searchQuery) {
+    <h2 class="search-results-title">Results for "{{ searchQuery }}"</h2>
+  }
+
+  @if (!searchQuery && !activeGenre) {
+    <app-movie-row
+      title="Trending Now"
+      [movies]="sortMovies(trendingMovies)"
+      [loading]="loading"
+      [expandable]="false"
+      (selectMovie)="openModal($event)"
+    />
+  }
+
+  @if (searchQuery && filteredGenres.length === 0) {
+    <div class="no-results">
+      <p>No results found for "{{ searchQuery }}"</p>
+    </div>
+  }
+
+  @for (genre of filteredGenres; track genre) {
+    <app-movie-row
+      [title]="genre"
+      [movies]="getFilteredMoviesByGenre(genre)"
+      [loading]="loading"
+      (selectMovie)="openModal($event)"
+    />
+  }
+</main>
+
+@if (selectedMovie) {
+  <app-movie-modal
+    [movie]="selectedMovie"
+    (close)="closeModal()"
+    (selectMovie)="onModalSelectMovie($event)"
+  />
+}

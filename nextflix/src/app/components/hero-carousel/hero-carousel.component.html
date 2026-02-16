@@ -1,0 +1,41 @@
+@if (featuredMovies.length > 0) {
+  <div class="hero-carousel">
+    <div
+      class="hero-slide"
+      [style.background-image]="'url(' + currentMovie.imageUrl + ')'"
+    >
+      <div class="hero-overlay">
+        <div class="hero-content">
+          @if (currentMovie.trending) {
+            <span class="trending-badge">Trending Now</span>
+          }
+          <h1 class="hero-title">{{ currentMovie.title }}</h1>
+          <p class="hero-synopsis">{{ currentMovie.synopsis }}</p>
+          <div class="hero-meta">
+            <span class="hero-rating">★ {{ currentMovie.rating }}</span>
+            <span class="hero-year">{{ currentMovie.year }}</span>
+            <span class="hero-genre">{{ currentMovie.genre }}</span>
+            <span class="hero-views">{{ currentMovie.views | number }} views</span>
+          </div>
+          <div class="hero-buttons">
+            <button class="btn-play">▶ Play</button>
+            <button class="btn-info" (click)="openDetail.emit(currentMovie)">ℹ More Info</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-arrow left" (click)="prev()">‹</button>
+    <button class="carousel-arrow right" (click)="next()">›</button>
+
+    <div class="carousel-dots">
+      @for (movie of featuredMovies; track movie.id; let i = $index) {
+        <button
+          class="dot"
+          [class.active]="i === currentIndex"
+          (click)="goTo(i)"
+        ></button>
+      }
+    </div>
+  </div>
+}

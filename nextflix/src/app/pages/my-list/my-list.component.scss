@@ -1,0 +1,61 @@
+.my-list-page {
+  padding: 80px 48px 60px;
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 24px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #333;
+
+  .tab {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 15px;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 200ms ease;
+
+    &:hover {
+      color: #ccc;
+    }
+
+    &.active {
+      color: #fff;
+      border-bottom-color: #e50914;
+      font-weight: 600;
+    }
+  }
+}
+
+.movie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+
+  p {
+    color: #888;
+    font-size: 20px;
+    margin: 0 0 8px;
+  }
+
+  .empty-hint {
+    font-size: 14px;
+    color: #555;
+  }
+}

@@ -1,0 +1,92 @@
+@if (movie) {
+  <div class="detail-page">
+    <div class="detail-hero" [style.background-image]="'url(' + movie.imageUrl + ')'">
+      <div class="detail-hero-overlay">
+        @if (showTrailer && trailerUrl) {
+          <div class="trailer-container">
+            <iframe [src]="trailerUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <button class="close-trailer" (click)="showTrailer = false">Close Trailer</button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="detail-content">
+      <div class="detail-main">
+        <a routerLink="/" class="back-link">← Back to Home</a>
+
+        @if (movie.trending) {
+          <span class="trending-badge">Trending Now</span>
+        }
+
+        <h1 class="detail-title">{{ movie.title }}</h1>
+
+        <div class="detail-meta">
+          <span class="rating">★ {{ movie.rating }}</span>
+          <span class="year">{{ movie.year }}</span>
+          <span class="genre">{{ movie.genre }}</span>
+          @if (movie.views) {
+            <span class="views">{{ movie.views | number }} views</span>
+          }
+        </div>
+
+        <p class="detail-synopsis">{{ movie.synopsis }}</p>
+
+        <div class="detail-actions">
+          @if (movie.trailerUrl) {
+            <button class="btn-play" (click)="showTrailer = true">▶ Watch Trailer</button>
+          }
+          <button
+            class="btn-secondary"
+            [class.active]="isFavorite"
+            (click)="toggleFavorite()"
+          >
+            {{ isFavorite ? '✓ In My List' : '+ My List' }}
+          </button>
+          <button
+            class="btn-secondary"
+            [class.active]="isWatched"
+            (click)="toggleWatched()"
+          >
+            {{ isWatched ? '✔ Watched' : '👁 Mark Watched' }}
+          </button>
+          <button
+            class="btn-icon"
+            [class.active]="userRating === 'like'"
+            (click)="rate('like')"
+          >
+            👍
+          </button>
+          <button
+            class="btn-icon"
+            [class.active]="userRating === 'dislike'"
+            (click)="rate('dislike')"
+          >
+            👎
+          </button>
+          <div class="share-wrapper">
+            <button class="btn-secondary" (click)="shareMovie()">🔗 Share</button>
+            @if (showShareTooltip) {
+              <span class="share-tooltip">Link copied!</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      @if (relatedMovies.length > 0) {
+        <div class="related-section">
+          <h2>More Like This</h2>
+          <div class="related-grid">
+            @for (related of relatedMovies; track related.id) {
+              <app-movie-card [movie]="related" (selectMovie)="navigateToMovie($event)" />
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+
+@if (selectedModal) {
+  <app-movie-modal [movie]="selectedModal" (close)="closeModal()" (selectMovie)="navigateToMovie($event)" />
+}

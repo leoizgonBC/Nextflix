@@ -1,0 +1,42 @@
+<div class="movie-card" (click)="selectMovie.emit(movie)">
+  @if (movie.trending) {
+    <span class="trending-badge">Trending</span>
+  }
+  @if (isWatched) {
+    <span class="watched-badge">Watched</span>
+  }
+  <img [src]="movie.imageUrl" [alt]="movie.title" class="movie-poster" loading="lazy" />
+  <div class="overlay">
+    <h3 class="title">{{ movie.title }}</h3>
+    <div class="meta">
+      <span class="year">{{ movie.year }}</span>
+      <span class="rating">★ {{ movie.rating }}</span>
+    </div>
+    <p class="synopsis">{{ movie.synopsis }}</p>
+    <div class="card-actions">
+      <button
+        class="action-btn"
+        [class.active]="isFavorite"
+        (click)="toggleFavorite($event)"
+        [attr.title]="isFavorite ? 'Remove from list' : 'Add to My List'"
+      >
+        {{ isFavorite ? '✓' : '+' }}
+      </button>
+      <button
+        class="action-btn"
+        [class.active]="isWatched"
+        (click)="toggleWatched($event)"
+        [attr.title]="isWatched ? 'Mark as unwatched' : 'Mark as watched'"
+      >
+        {{ isWatched ? '✔' : '👁' }}
+      </button>
+    </div>
+  </div>
+  @if (showConfetti) {
+    <div class="confetti-container">
+      @for (i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i) {
+        <div class="confetti-piece" [style.--i]="i"></div>
+      }
+    </div>
+  }
+</div>

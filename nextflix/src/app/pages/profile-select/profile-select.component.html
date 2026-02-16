@@ -1,0 +1,36 @@
+<div class="profile-page">
+  <h1 class="page-title">Who's Watching?</h1>
+
+  <div class="profile-form">
+    <div class="current-avatar">
+      <img [src]="profile.avatar" [alt]="profile.name" />
+    </div>
+
+    <div class="name-field">
+      <label>Display Name</label>
+      <input
+        type="text"
+        [(ngModel)]="profile.name"
+        placeholder="Enter your name"
+        class="name-input"
+      />
+    </div>
+
+    <div class="avatar-grid">
+      <p class="avatar-label">Choose your avatar:</p>
+      <div class="avatars">
+        @for (avatar of avatars; track avatar) {
+          <button
+            class="avatar-option"
+            [class.selected]="profile.avatar === avatar"
+            (click)="selectAvatar(avatar)"
+          >
+            <img [src]="avatar" alt="Avatar option" />
+          </button>
+        }
+      </div>
+    </div>
+
+    <button class="save-btn" (click)="save()">Save & Continue</button>
+  </div>
+</div>

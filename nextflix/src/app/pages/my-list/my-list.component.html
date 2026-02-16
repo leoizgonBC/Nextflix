@@ -1,0 +1,42 @@
+<div class="my-list-page">
+  <h1 class="page-title">My List</h1>
+
+  <div class="tabs">
+    <button
+      class="tab"
+      [class.active]="activeTab === 'favorites'"
+      (click)="activeTab = 'favorites'"
+    >
+      Favorites ({{ favoriteMovies.length }})
+    </button>
+    <button
+      class="tab"
+      [class.active]="activeTab === 'watched'"
+      (click)="activeTab = 'watched'"
+    >
+      Watched ({{ watchedMovies.length }})
+    </button>
+  </div>
+
+  @if (currentMovies.length === 0) {
+    <div class="empty-state">
+      @if (activeTab === 'favorites') {
+        <p>Your list is empty.</p>
+        <p class="empty-hint">Add movies to your list by clicking the + button on any movie card.</p>
+      } @else {
+        <p>No watched movies yet.</p>
+        <p class="empty-hint">Mark movies as watched to keep track of what you've seen.</p>
+      }
+    </div>
+  } @else {
+    <div class="movie-grid">
+      @for (movie of currentMovies; track movie.id) {
+        <app-movie-card [movie]="movie" (selectMovie)="openModal($event)" />
+      }
+    </div>
+  }
+</div>
+
+@if (selectedMovie) {
+  <app-movie-modal [movie]="selectedMovie" (close)="closeModal()" (selectMovie)="openModal($event)" />
+}

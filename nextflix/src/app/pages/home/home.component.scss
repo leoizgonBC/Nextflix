@@ -1,0 +1,87 @@
+.content {
+  position: relative;
+  margin-top: -80px;
+  padding-bottom: 60px;
+
+  &.search-mode {
+    margin-top: 80px;
+  }
+}
+
+.filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.genre-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  .genre-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ccc;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 200ms ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    &.active {
+      background: #e50914;
+      border-color: #e50914;
+      color: #fff;
+    }
+  }
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  label {
+    color: #888;
+    font-size: 13px;
+  }
+
+  .sort-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+
+    option {
+      background: #181818;
+      color: #fff;
+    }
+  }
+}
+
+.search-results-title {
+  color: #e5e5e5;
+  font-size: 22px;
+  padding: 0 48px 10px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 48px;
+  color: #888;
+  font-size: 18px;
+}

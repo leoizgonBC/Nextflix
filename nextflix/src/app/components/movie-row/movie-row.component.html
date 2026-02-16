@@ -1,0 +1,24 @@
+<section class="movie-row">
+  <h2 class="row-title">{{ title }}</h2>
+  <div class="row-wrapper">
+    <button class="scroll-arrow left" (click)="scrollLeft()">‹</button>
+    <div class="row-content" #rowContent>
+      @if (loading) {
+        @for (item of skeletonItems; track $index) {
+          <app-skeleton-card />
+        }
+      } @else {
+        @for (movie of displayedMovies; track movie.id) {
+          <app-movie-card [movie]="movie" (selectMovie)="selectMovie.emit($event)" />
+        }
+        @if (canExpand) {
+          <button class="see-more-btn" (click)="expanded = true">
+            <span>See More</span>
+            <span class="arrow-down">▼</span>
+          </button>
+        }
+      }
+    </div>
+    <button class="scroll-arrow right" (click)="scrollRight()">›</button>
+  </div>
+</section>
